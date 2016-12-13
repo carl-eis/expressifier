@@ -1,0 +1,19 @@
+{
+  "name": "node-abalobi",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Carl Eiserman <carleiserman@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ]
+}
