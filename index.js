@@ -37,11 +37,11 @@ app.get('/', function(req, res) {
     child = spawn("powershell.exe", ["C:\\cygwin64\\home\\Carl\\Techairos\\odk2-publisher\\target\\bin\\testpost.bat"]);
     child.stdout.on("data", function(data) {
         console.log("Powershell Data: " + data);
-        logResponse("Powershell Data: " + data);
+        logResponse(data);
     });
     child.stderr.on("data", function(data) {
         console.log("Powershell Errors: " + data);
-        logResponse("Powershell Errors: " + data);
+        logResponse(data);
     });
     child.on("exit", function() {
         console.log("Powershell Script finished");
