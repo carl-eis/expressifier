@@ -105,7 +105,7 @@ app.post('/imageupload', function(req, res) {
         // console.log("Printing strinified JSON:");
         // console.log(JSON.stringify(req.body, null, 4));
 		
-        if (typeof(req.body.photo_selfie) != "undefined") {
+        if (typeof(req.body.image) != "undefined") {
             var image_id = req.body.id + "_avatar";
 
             console.log(image_id);
