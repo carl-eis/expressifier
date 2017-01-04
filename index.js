@@ -125,7 +125,7 @@ app.post('/imageupload', function(req, res) {
     console.log(req.headers);
     console.log("\nHEADERS DONE - PRINTING Body\n");
     try {
-        console.log("Printing strinified JSON:");
+        // console.log("Printing strinified JSON:");
         // console.log(JSON.stringify(req.body, null, 4));
 		
         if (typeof(req.body.photo_selfie) != "undefined") {
@@ -140,7 +140,9 @@ app.post('/imageupload', function(req, res) {
                 
                 // TODO: Send URL to OpenFN
             }, {public_id: image_id});
-        }        
+        } else {
+            console.log("WOOP");
+        }
 		
 		//Get the result in the response ( url ) and send to OpenFn (as a post request)	
 		
