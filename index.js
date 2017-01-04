@@ -111,8 +111,9 @@ app.post('/imageupload', function(req, res) {
             console.log(image_id);
 
             // Upload image to cloudinary
-            cloudinary.uploader.upload(req.body.photo_selfie, function(result) {
+            cloudinary.uploader.upload(req.body.image, function(result) {
                 // Print URL to image
+                console.log(result.url);
                 console.log("URL to image: " + result.url);
                 
                 // TODO: Send URL to OpenFN
