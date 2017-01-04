@@ -129,17 +129,17 @@ app.post('/imageupload', function(req, res) {
         // console.log(JSON.stringify(req.body, null, 4));
 		
         if (typeof(req.body.photo_selfie) != "undefined") {
-            image_id = req.body.id + "_avatar"
+            var image_id = req.body.id + "_avatar";
 
             console.log(image_id);
 
             // Upload image to cloudinary
             cloudinary.uploader.upload(req.body.photo_selfie, function(result) {
                 // Print URL to image
-                console.log("URL to image: " + result.url)
+                console.log("URL to image: " + result.url);
                 
                 // TODO: Send URL to OpenFN
-            }, public_id: image_id);
+            }, {public_id: image_id});
         }        
 		
 		//Get the result in the response ( url ) and send to OpenFn (as a post request)	
@@ -153,23 +153,23 @@ app.post('/imageupload', function(req, res) {
     res.send('Got a POST request')
 });
 
-// app.put('/user', function(req, res) {
-//     res.send('Got a PUT request at /user')
-// });
+app.put('/user', function(req, res) {
+    res.send('Got a PUT request at /user')
+});
 
-// app.delete('/user', function(req, res) {
-//     res.send('Got a DELETE request at /user')
-// });
+app.delete('/user', function(req, res) {
+    res.send('Got a DELETE request at /user')
+});
 
-// app.listen(8080, function() {
-//     console.log('Example app listening on port 3000!')
-// });
+app.listen(8080, function() {
+    console.log('Example app listening on port 3000!')
+});
 
-// app.all('/*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
-// function logResponse(data) {
-//     responseJSON.data += "\n" + data.toString();
-// }
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+function logResponse(data) {
+    responseJSON.data += "\n" + data.toString();
+}
