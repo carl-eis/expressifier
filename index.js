@@ -1,17 +1,44 @@
-/*
+/*======================================*\
     Expressifier!
     API in a box.
 
     Developed by: Carl Eiserman
-*/
+\*======================================*/
 
+
+
+/*======================================*\
+    NPM Packages
+\*======================================*/
 
 var express = require('express');
 var cors = require('cors');
 var app = express();
-
+var bodyParser = require("body-parser");
 var spawn = require("child_process").spawn,
     child;
+
+/*======================================*\
+    Settings
+\*======================================*/
+
+app.use(bodyParser.urlencoded({
+    extended: false,
+    limit: '5mb'
+}));
+
+// parse application/json
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
+
+app.use(bodyParser.raw({
+    limit: '5mb'
+}));
+
+/*======================================*\
+    Request Options
+\*======================================*/
 
 
 app.use(cors());
@@ -60,6 +87,22 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
+    res.send('Got a POST request')
+});
+
+app.post('/imageupload', function(req, res) {
+    console.log("====================================");
+    console.log("Received POST - Printing Headers\n");
+    console.log(req.headers);
+    console.log("\nHEADERS DONE - PRINTING Body\n");
+    try {
+        console.log("Printing strinified JSON:");
+        console.log(JSON.stringify(req.body, null, 4));
+    } catch (ex) {
+        console.log("UNABLE TO STRINGIFY BODY\n");
+    }
+    console.log("====================================");
+    // res.send("This is successful!");
     res.send('Got a POST request')
 });
 
