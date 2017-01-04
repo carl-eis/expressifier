@@ -50,8 +50,7 @@ helloWorld();
 
 function helloWorld(){
     console.log("Making HTTP Request...");
-    
-    //TODO: Get the key
+
     var cleint_id = "e56b075811bab20"
     var client_secret = "010abded8a9db2993382db96c89c2ecf2e6ed44c"
 
@@ -61,11 +60,12 @@ function helloWorld(){
 
     var myJSONObject = {"Authorization": "Client-ID e56b075811bab20", "image": base64, "type": "base64", "title": "test pic"};
 
+    url = "http://requestb.in/sy4n96sy"
     request(url, {"Authorization": "Client-ID e56b075811bab20", "image": base64, "type": "base64", "method": "POST"}, 
         function (error, response, body) {
           if (!error) {
             console.log(body);
-          }
+        }
     });
 }
 
