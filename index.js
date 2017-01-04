@@ -98,6 +98,16 @@ app.post('/imageupload', function(req, res) {
     try {
         console.log("Printing strinified JSON:");
         console.log(JSON.stringify(req.body, null, 4));
+		
+		
+		//Send through to api (make another http request from here)
+		
+		//Get the result in the response ( url ) and send to OpenFn (as a post request)
+		
+		
+		
+		
+		
     } catch (ex) {
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
