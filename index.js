@@ -13,6 +13,7 @@
 
 var express = require('express');
 var cors = require('cors');
+var request = require('request');
 var cloudinary = require('cloudinary');
 var app = express();
 var bodyParser = require("body-parser");
@@ -102,29 +103,26 @@ app.post('/imageupload', function(req, res) {
     console.log(req.headers);
     console.log("\nHEADERS DONE - PRINTING Body\n");
     try {
-        // console.log("Printing strinified JSON:");
+        console.log("Printing strinified JSON:");
         // console.log(JSON.stringify(req.body, null, 4));
 		
         if (typeof(req.body.image) != "undefined") {
             var image_id = req.body.id + "_avatar";
 
-            console.log(image_id);
+            console.log("Image ID: " + image_id);
 
             // Upload image to cloudinary
             cloudinary.uploader.upload(req.body.image, function(result) {
                 // Print URL to image
-                console.log(result.url);
                 console.log("URL to image: " + result.url);
-                
-                // TODO: Send URL to OpenFN
+
+                // Post URL to OpenFN
+                // var the_body = {"name": req.body.name, "surname": req.body.surname, "id": req.body.id, "url": result.url}
+                // request("https://www.openfn.org/inbox/", {headers: {"Authorization": "3afab0f1-3937-4ca8-95a3-5491f6f32a4e"}, method: "POST", body: the_body});
             }, {public_id: image_id});
         } else {
-            console.log("WOOP");
-        }
-		
-		//Get the result in the response ( url ) and send to OpenFn (as a post request)	
-		
-		
+            console.log("No image field in JSON");
+        }	
     } catch (ex) {
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
