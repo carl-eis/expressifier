@@ -171,7 +171,7 @@ app.post('/imageupload', function(req, res) {
             console.log("Image ID: " + image_id);
 
             // Upload image to cloudinary
-            cloudinary.uploader.upload(image, function(result) {
+            cloudinary.uploader.upload(req.body.image, function(result) {
                 // Print URL to image
                 console.log("URL to image: " + result.url);
                 
