@@ -13,6 +13,8 @@
 
 var express = require('express');
 var cors = require('cors');
+var request = require('request');
+var cloudinary = require('cloudinary');
 var app = express();
 var bodyParser = require("body-parser");
 var spawn = require("child_process").spawn,
@@ -36,11 +38,16 @@ app.use(bodyParser.raw({
     limit: '5mb'
 }));
 
+// Set cloudinary global parameters
+cloudinary.config({ 
+  cloud_name: 'dsytodvcc', 
+  api_key: '651473314464965', 
+  api_secret: 'cUN9iMp4dPXswQzNfQus5EfjWB8' 
+});
+
 /*======================================*\
     Request Options
 \*======================================*/
-
-
 app.use(cors());
 var responseJSON = {};
 
@@ -97,7 +104,25 @@ app.post('/imageupload', function(req, res) {
     console.log("\nHEADERS DONE - PRINTING Body\n");
     try {
         console.log("Printing strinified JSON:");
-        console.log(JSON.stringify(req.body, null, 4));
+        // console.log(JSON.stringify(req.body, null, 4));
+		
+        if (typeof(req.body.image) != "undefined") {
+            var image_id = req.body.id + "_avatar";
+
+            console.log("Image ID: " + image_id);
+
+            // Upload image to cloudinary
+            cloudinary.uploader.upload(req.body.image, function(result) {
+                // Print URL to image
+                console.log("URL to image: " + result.url);
+
+                // Post URL to OpenFN
+                // var the_body = {"name": req.body.name, "surname": req.body.surname, "id": req.body.id, "url": result.url}
+                // request("https://www.openfn.org/inbox/", {headers: {"Authorization": "3afab0f1-3937-4ca8-95a3-5491f6f32a4e"}, method: "POST", body: the_body});
+            }, {public_id: image_id});
+        } else {
+            console.log("No image field in JSON");
+        }	
     } catch (ex) {
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
@@ -118,11 +143,11 @@ app.listen(8080, function() {
     console.log('Example app listening on port 3000!')
 });
 
-// app.all('/*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 function logResponse(data) {
     responseJSON.data += "\n" + data.toString();
 }
