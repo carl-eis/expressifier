@@ -214,6 +214,7 @@ app.post('/imageupload', function(req, res) {
             console.log("No image field in JSON");
         }	
     } catch (ex) {
+        console.log(ex);
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
     console.log("====================================");
