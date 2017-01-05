@@ -188,7 +188,7 @@ app.post('/imageupload', function(req, res) {
                     // Do the query
                     conn.query(query, function(err, res) {
                         if (err) { 
-                            return console.error(err); 
+                            return console.error(err);
                         }
                         
                         console.log(res); // Print the entire response
