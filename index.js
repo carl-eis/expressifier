@@ -197,16 +197,16 @@ app.post('/imageupload', function(req, res) {
                         // console.log(res.records[0].name__c); // Print just the first record's name
 
                         // Update the entry profile picture using the Id retrieved from above
-                        // conn.sobject("Ablb_Registration__c").update({
-                        //     Id : res.records[0].Id,
-                        //     photo_selfie__c : result.url
-                        // }, function(err, ret) {
-                        //     if (err || !ret.success) { 
-                        //         return console.error(err, ret);
-                        //     }
+                        conn.sobject("Ablb_Registration__c").update({
+                            Id : res.records[0].Id,
+                            photo_selfie__c : result.url
+                        }, function(err, ret) {
+                            if (err || !ret.success) { 
+                                return console.error(err, ret);
+                            }
 
-                        //     console.log('Updated Successfully : ' + ret.id);                  
-                        // });
+                            console.log('Updated Successfully : ' + ret.id);                  
+                        });
                   });
                 });                
             }, {public_id: image_id});            
