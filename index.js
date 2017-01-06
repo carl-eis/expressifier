@@ -53,7 +53,7 @@ cloudinary.config({
 app.use(cors());
 var responseJSON = {};
 
-app.get('/', function(req, res) {
+app.get('/odk2publisher', function(req, res) {
     res.headers = {
         "Access-Control-Allow-Origin": "*"
     };
