@@ -14,6 +14,7 @@
 var express = require('express');
 var cors = require('cors');
 var request = require('request');
+var jsforce = require('jsforce');
 var cloudinary = require('cloudinary');
 var app = express();
 var bodyParser = require("body-parser");
@@ -48,6 +49,8 @@ cloudinary.config({
 /*======================================*\
     Request Options
 \*======================================*/
+
+
 app.use(cors());
 var responseJSON = {};
 
@@ -115,15 +118,62 @@ app.post('/imageupload', function(req, res) {
             cloudinary.uploader.upload(req.body.image, function(result) {
                 // Print URL to image
                 console.log("URL to image: " + result.url);
+                
+                var query = "SELECT name__c, Id, CreatedDate FROM Ablb_Registration__c WHERE id_number__c = '" + req.body.id + "'";
+                console.log('The query: ' + query);
+                
+                var conn = new jsforce.Connection();
+                // Login on SalesForce
+                conn.login('carl@techairos.com', 'sPy8uFXuzWOIMHN4XTp4', function(err, res) {
+                    if (err) { 
+                        return console.error(err); 
+                    }
+                    
+                    // Do the query
+                    conn.query(query, function(err, res) {
+                        if (err) { 
+                            return console.error(err);
+                        }
+                        
+                        console.log(res); // Print the entire response
+                        // console.log(res.records.length); // Print the number of retrieved records
+                        // console.log(res.records[0].Id); // Print just the first record's Id
+                        // console.log(res.records[0].name__c); // Print just the first record's name
 
-                // Post URL to OpenFN
-                // var the_body = {"name": req.body.name, "surname": req.body.surname, "id": req.body.id, "url": result.url}
-                // request("https://www.openfn.org/inbox/", {headers: {"Authorization": "3afab0f1-3937-4ca8-95a3-5491f6f32a4e"}, method: "POST", body: the_body});
+                        if (res.records.length > 0) {
+                            var latestRecord = res.records[0];
+                            for (var i = 1; i < res.records.length; i = i + 1) {
+                                var lastestDate = new Date(latestRecord.CreatedDate);
+                                var date = new Date(res.records[i].CreatedDate);
+
+                                if (date.getTime() > lastestDate.getTime()) {
+                                    latestRecord = res.records[i];
+                                }
+                            }
+
+                            // Update the entry profile picture using the Id retrieved from above
+                            conn.sobject("Ablb_Registration__c").update({
+                                Id : latestRecord.Id,
+                                photo_selfie__c : result.url
+                            }, function(err, ret) {
+                                if (err || !ret.success) {
+                                    return console.error(err, ret);
+                                }
+
+                                console.log('Updated Successfully : ' + ret.id);
+                            });
+                        } else {
+                            console.log("No records were returned from query");
+                        }
+                        
+                    });
+                });
             }, {public_id: image_id});
         } else {
             console.log("No image field in JSON");
-        }	
+        }
     } catch (ex) {
+        console.log(ex);
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
     console.log("====================================");
