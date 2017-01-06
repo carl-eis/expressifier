@@ -40,11 +40,13 @@ app.use(bodyParser.raw({
 }));
 
 // Set cloudinary global parameters
-cloudinary.config({ 
-  cloud_name: 'dsytodvcc', 
-  api_key: '651473314464965', 
-  api_secret: 'cUN9iMp4dPXswQzNfQus5EfjWB8' 
+cloudinary.config({
+  cloud_name: 'dsytodvcc',
+  api_key: '651473314464965',
+  api_secret: 'cUN9iMp4dPXswQzNfQus5EfjWB8'
 });
+//NB: These are on Johan's personal account
+//Please create a Techairos account and switch these out.
 
 /*======================================*\
     Request Options
@@ -54,7 +56,7 @@ cloudinary.config({
 app.use(cors());
 var responseJSON = {};
 
-app.get('/', function(req, res) {
+app.get('/odk2publisher', function(req, res) {
     res.headers = {
         "Access-Control-Allow-Origin": "*"
     };
@@ -100,6 +102,22 @@ app.post('/', function(req, res) {
     res.send('Got a POST request')
 });
 
+app.post('/http_record_add_new', function(req, res) {
+    res.send('Got a POST request for new record');
+    console.log("====================================");
+    console.log("Received POST - Printing Headers\n");
+    console.log(req.headers);
+    console.log("\nHEADERS DONE - PRINTING Body\n");
+    try {
+        console.log("Printing strinified JSON:");
+        console.log(JSON.stringify(req.body, null, 4));
+    } catch (ex) {
+        console.log("UNABLE TO STRINGIFY BODY\n");
+        console.log("PRINTING RAW");
+        console.log(req.body);
+    }
+});
+
 app.post('/imageupload', function(req, res) {
     console.log("====================================");
     console.log("Received POST - Printing Headers\n");
@@ -108,7 +126,7 @@ app.post('/imageupload', function(req, res) {
     try {
         console.log("Printing strinified JSON:");
         // console.log(JSON.stringify(req.body, null, 4));
-		
+
         if (typeof(req.body.image) != "undefined") {
             var image_id = req.body.id + "_avatar";
 
@@ -190,7 +208,7 @@ app.delete('/user', function(req, res) {
 });
 
 app.listen(8080, function() {
-    console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 8080!')
 });
 
 app.all('/*', function(req, res, next) {
