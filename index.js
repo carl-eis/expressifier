@@ -99,6 +99,21 @@ app.post('/', function(req, res) {
     res.send('Got a POST request')
 });
 
+app.post('/http_record_add_new', function(req, res) {
+    res.send('Got a POST request for new record');
+    console.log("====================================");
+    console.log("Received POST - Printing Headers\n");
+    console.log(req.headers);
+    console.log("\nHEADERS DONE - PRINTING Body\n");
+    try {
+        console.log("Printing strinified JSON:");
+    } catch (ex) {
+        console.log("UNABLE TO STRINGIFY BODY\n");
+        console.log("PRINTING RAW");
+        console.log(req.body);
+    }
+});
+
 app.post('/imageupload', function(req, res) {
     console.log("====================================");
     console.log("Received POST - Printing Headers\n");
