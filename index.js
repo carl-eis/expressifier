@@ -107,6 +107,7 @@ app.post('/http_record_add_new', function(req, res) {
     console.log("\nHEADERS DONE - PRINTING Body\n");
     try {
         console.log("Printing strinified JSON:");
+        console.log(JSON.stringify(req.body, null, 4));
     } catch (ex) {
         console.log("UNABLE TO STRINGIFY BODY\n");
         console.log("PRINTING RAW");
