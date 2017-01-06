@@ -39,11 +39,13 @@ app.use(bodyParser.raw({
 }));
 
 // Set cloudinary global parameters
-cloudinary.config({ 
-  cloud_name: 'dsytodvcc', 
-  api_key: '651473314464965', 
-  api_secret: 'cUN9iMp4dPXswQzNfQus5EfjWB8' 
+cloudinary.config({
+  cloud_name: 'dsytodvcc',
+  api_key: '651473314464965',
+  api_secret: 'cUN9iMp4dPXswQzNfQus5EfjWB8'
 });
+//NB: These are on Johan's personal account
+//Please create a Techairos account and switch these out.
 
 /*======================================*\
     Request Options
@@ -105,7 +107,7 @@ app.post('/imageupload', function(req, res) {
     try {
         console.log("Printing strinified JSON:");
         // console.log(JSON.stringify(req.body, null, 4));
-		
+
         if (typeof(req.body.image) != "undefined") {
             var image_id = req.body.id + "_avatar";
 
@@ -122,7 +124,7 @@ app.post('/imageupload', function(req, res) {
             }, {public_id: image_id});
         } else {
             console.log("No image field in JSON");
-        }	
+        }
     } catch (ex) {
         console.log("UNABLE TO STRINGIFY BODY\n");
     }
