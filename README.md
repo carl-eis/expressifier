@@ -8,6 +8,14 @@ I created expressifier as an easy-to-use, simple template for a REST API using e
 
 Use this as a framework to build your own API.
 
+#### Notes: 
+- This app has been designed to respond easiest to queries from Ember.js,
+but can be configured to work with any front-end framework or system.
+
+- All HTTP requests are in the `./components/REST/*` folder.
+
+- You will have to  `require()` new requests you create into the`./components/REST/driver.js` as imports.
+
 -----
 
 # Getting Started
@@ -24,6 +32,7 @@ Use this as a framework to build your own API.
 Open up `settings.json` - you will find a few configurable options in there.
 
 - `SERVER_PORT` - The IP port the server will bind to
+- `CREATE_DIRECTORIES` - Boolean, if false, will not try to create a list of directories in the root folder.
 - `DIRECTORIES` - An array of directories the server will create when run
     
 ### 3. Run!
