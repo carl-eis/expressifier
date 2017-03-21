@@ -69,14 +69,13 @@ app.all('/*', function(req, res, next) {
  \*======================================*/
 
 app.listen(8080, function() {
-    console.log('API Server running on port 8080!');
-    //Only do this once the server is running:
+    console.log('API Server running on port 8080!\n');
+    //Only do this once the server is running:\n
 
     var rest_driver = require("./components/REST/driver");
 
     //Launch the rest api
     rest_driver.init(app);
-
 
 });
 console.log("==========================================\n");

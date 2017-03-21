@@ -12,7 +12,7 @@ function init(express){
     var req_wildcard = require("./req_wildcard.js");
     req_wildcard.init(app);
 
-    console.log("REST API Initialized.\n");
+    console.log("\nREST API Initialized.\n");
 }
 
 module.exports = {
