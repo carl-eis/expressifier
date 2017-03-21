@@ -19,7 +19,14 @@ Use this as a framework to build your own API.
     $ npm install -g yarn
     $ yarn
     
-### 2. Run!
+### 2. Configure settings
+
+Open up `settings.json` - you will find a few configurable options in there.
+
+- `SERVER_PORT` - The IP port the server will bind to
+- `DIRECTORIES` - An array of directories the server will create when run
+    
+### 3. Run!
 
     $ node index
 
