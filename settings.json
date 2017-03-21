@@ -1,0 +1,9 @@
+{
+    "CREATE_DIRECTORIES" : true,
+    "DIRECTORIES" : [
+        "./datafiles",
+        "./secrets",
+        "./logs"
+    ],
+    "SERVER_PORT" : 8080
+}

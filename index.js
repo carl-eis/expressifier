@@ -16,6 +16,9 @@ var express = require('express');
 var cors = require('cors');
 var request = require('request');
 var open = require("open");
+var SETTINGS = require("./settings.json");
+var run_once = require("./components/tasks/run_once.js");
+
 
 //Logging library
 var winston = require("winston");
@@ -68,8 +71,10 @@ app.all('/*', function(req, res, next) {
     Request Options
  \*======================================*/
 
-app.listen(8080, function() {
-    console.log('API Server running on port 8080!\n');
+run_once.init();
+
+app.listen(SETTINGS.SERVER_PORT, function() {
+    console.log('API Server running on port ' + SETTINGS.SERVER_PORT + '!\n');
     //Only do this once the server is running:\n
 
     var rest_driver = require("./components/REST/driver");

@@ -2,15 +2,16 @@ var app;
 var cors = require('cors');
 var request = require('request');
 
-var fs = require("fs");
-
 function init(express){
     app = express;
 
     console.log("Launching REST API...");
 
-    var req_wildcard = require("./req_wildcard.js");
-    req_wildcard.init(app);
+    //LOAD ALL MODULES HERE
+    var req_all = require("./req_all.js");
+
+    //INIT ALL MODULES HERE
+    req_all.init(app);
 
     console.log("\nREST API Initialized.\n");
 }
